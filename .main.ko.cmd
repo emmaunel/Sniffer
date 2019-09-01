@@ -1,0 +1,1 @@
+cmd_/root/Documents/sniffer/main.ko := ld -r -m elf_x86_64  -z max-page-size=0x200000 -T /usr/src/linux-headers-5.2.0-2parrot1-common/scripts/module-common.lds  --build-id  -o /root/Documents/sniffer/main.ko /root/Documents/sniffer/main.o /root/Documents/sniffer/main.mod.o ;  true
